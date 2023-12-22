@@ -29,7 +29,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             continue
 
         if input_string == "END":
-            printf("Ending connection to host")
+            print("Ending connection to host")
             break
 
         s.sendall(input_string.encode())
