@@ -7,32 +7,41 @@ LOGGING_CONFIG = {
         'standard': {
             'format': '%(asctime)s [%(levelname)s] - %(name)s: %(message)s',
             'datefmt': '%Y-%m-%dT%H:%M:%S%z'
+        },
+        'simple': {
+            'format': '%(message)s',
         }
     },
     'handlers': {
         'server': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'formatter': 'standard',
             'class': 'logging.FileHandler',
             'filename': f'logs/server.log',
             'mode': 'a'
         },
         'client': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'formatter': 'standard',
             'class': 'logging.FileHandler',
             'filename': f'logs/client.log',
             'mode': 'a'
         },
+        'stdout': {
+            'level': 'DEBUG',
+            'formatter': 'simple',
+            'class': 'logging.StreamHandler',
+            'stream': 'ext://sys.stdout'
+        },
     },
     'loggers': {
         'CLIENT': {
-            'handlers': ['client'],
+            'handlers': ['client', 'stdout'],
             'level': 'DEBUG',
             'propagate': False
         },
         'SERVER': {
-            'handlers': ['server'],
+            'handlers': ['server', 'stdout'],
             'level': 'DEBUG',
             'propagate': False
         }

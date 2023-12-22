@@ -16,12 +16,12 @@ args = parser.parse_args()
 host = args.hostname
 port = args.port
 
-print("Starting client")
+logger.info("Starting client")
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((host, port))
 
-    print("Connected to host. Type END to end connection.")
+    logger.info("Connected to host. Type END to end connection.")
     while True:
         input_string = input("Message to send: ")
 
@@ -29,7 +29,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             continue
 
         if input_string == "END":
-            printf("Ending connection to host")
+            logger.info("Ending connection to host")
             break
 
         s.sendall(input_string.encode())
