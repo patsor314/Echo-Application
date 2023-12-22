@@ -1,4 +1,4 @@
-# ITRS Coding Exercise
+# Server and Client Echo Application
 
 This project sets up a simple multi-connection server and client echo application using sockets. 
 
