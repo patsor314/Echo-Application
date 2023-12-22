@@ -17,13 +17,13 @@ class MultiConnectionServer():
         lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         lsock.bind((self.host, self.port))
         lsock.listen()
-        self.__log.info(f"Listening on {(self.host, self.port)}")
+        print(f"Listening on {(self.host, self.port)}")
         lsock.setblocking(False)
         self.sel.register(lsock, selectors.EVENT_READ, data=None)
 
     def __accept_wrapper(self, sock):
         conn, addr = sock.accept()
-        self.__log.info(f"Accepted connection from {addr}")
+        print(f"Accepted connection from {addr}")
         conn.setblocking(False)
         data = types.SimpleNamespace(addr=addr, inb=b"", outb=b"")
         events = selectors.EVENT_READ | selectors.EVENT_WRITE
@@ -37,12 +37,13 @@ class MultiConnectionServer():
             if recv_data:
                 data.outb += recv_data
             else:
-                self.__log.info(f"Closing connection to {data.addr}")
+                print(f"Closing connection to {data.addr}")
                 self.sel.unregister(sock)
                 sock.close()
         if mask & selectors.EVENT_WRITE:
             if data.outb:
-                self.__log.info(f"Received \'{data.outb.decode()}\' from {data.addr}. Echoing back.")
+                self.__log.info(f"Received \'{data.outb.decode()}\' from {data.addr}.")
+                print(f"Echoing back \'{data.outb.decode()}\' to {data.addr}.")
                 sent = sock.send(data.outb)  # Should be ready to write
                 data.outb = data.outb[sent:]
 
@@ -56,6 +57,6 @@ class MultiConnectionServer():
                     else:
                         self.__service_connection(key, mask)
         except KeyboardInterrupt:
-            self.__log.info("Closing server")
+            print("Closing server")
         finally:
             self.sel.close()

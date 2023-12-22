@@ -9,7 +9,7 @@ from socket_services.MultiConnectionServer import MultiConnectionServer
 from utils.constants import HOSTNAME, HOST_PORT, LOGGING_CONFIG
 
 logging.config.dictConfig(LOGGING_CONFIG)
-logger = logging.getLogger('server')
+logger = logging.getLogger('SERVER')
 
 server = MultiConnectionServer()
 server.receive_connections()
