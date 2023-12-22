@@ -30,7 +30,11 @@ class MultiConnectionServer():
         sock = key.fileobj
         data = key.data
         if mask & selectors.EVENT_READ:
-            recv_data = sock.recv(1024)
+            try:
+                recv_data = sock.recv(1024)
+            except Exception as e:
+                print(e)
+                
             if recv_data:
                 data.outb += recv_data
             else:
@@ -41,8 +45,11 @@ class MultiConnectionServer():
             if data.outb:
                 self.__log.info(f"Received \'{data.outb.decode()}\' from {data.addr}.")
                 print(f"Echoing back \'{data.outb.decode()}\' to {data.addr}.")
-                sent = sock.send(data.outb)  # Should be ready to write
-                data.outb = data.outb[sent:]
+                try:
+                    sent = sock.send(data.outb)  # Should be ready to write
+                    data.outb = data.outb[sent:]
+                except Exception as e:
+                    print(e)
 
     def receive_connections(self):
         try:
