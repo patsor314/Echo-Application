@@ -3,7 +3,7 @@ import logging
 import logging.config
 import argparse
 
-from utils.constants import LOGGING_CONFIG
+from utils.log import LOGGING_CONFIG
 
 logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger('CLIENT')
