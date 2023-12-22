@@ -7,7 +7,7 @@ from logging import Logger, getLogger
 from utils.constants import HOSTNAME, HOST_PORT
 
 class MultiConnectionServer():
-    __log: Logger = getLogger(__name__)
+    __log: Logger = getLogger('SERVER')
     sel = selectors.DefaultSelector()
 
     host = HOSTNAME

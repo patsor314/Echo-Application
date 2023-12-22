@@ -1,10 +1,11 @@
 import socket
 import logging
+import logging.config
 
 from utils.constants import HOSTNAME, HOST_PORT, LOGGING_CONFIG
 
-logging.basicConfig(**LOGGING_CONFIG)
-logger = logging.getLogger(__name__)
+logging.config.dictConfig(LOGGING_CONFIG)
+logger = logging.getLogger('CLIENT')
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOSTNAME, HOST_PORT))
@@ -14,7 +15,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
         if input_string == "":
             continue
-            
+
         if input_string == "END":
             break
 
