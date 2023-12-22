@@ -39,8 +39,7 @@ class MultiConnectionServer():
                 sock.close()
         if mask & selectors.EVENT_WRITE:
             if data.outb:
-                self.__log.info(f"Received \'{data.outb.decode()}\' from {data.addr}.")
-                print(f"Echoing back \'{data.outb.decode()}\' to {data.addr}.")
+                self.__log.info(f"Received \'{data.outb.decode()}\' from {data.addr}. Echoing back")
                 sent = sock.send(data.outb)  # Should be ready to write
                 data.outb = data.outb[sent:]
 
