@@ -10,12 +10,13 @@ Default hostname is `127.0.0.1` using port `65500`.
 
 1. Run the server application
 ```
-python main_server.py
+python main_server.py [--hostname address] [--port port_number]
 ```
+
 
 2. Run the client
 ```
-python main_client.py
+python main_client.py [--hostname address] [--port port_number]
 ```
 
 ## References
