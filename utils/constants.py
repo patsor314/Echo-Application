@@ -1,8 +1,5 @@
 import logging
 
-HOST_PORT=65500
-HOSTNAME='127.0.0.1'
-
 LOGGING_CONFIG = {
     'version': 1,
     'disable_existing_loggers': True,

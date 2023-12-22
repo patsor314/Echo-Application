@@ -4,16 +4,13 @@ import selectors
 import types
 from logging import Logger, getLogger
 
-from utils.constants import HOSTNAME, HOST_PORT
-
 class MultiConnectionServer():
     __log: Logger = getLogger('SERVER')
     sel = selectors.DefaultSelector()
 
-    host = HOSTNAME
-    port = HOST_PORT
-
-    def __init__(self):
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
         lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         lsock.bind((self.host, self.port))
         lsock.listen()
