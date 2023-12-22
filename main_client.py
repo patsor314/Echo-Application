@@ -1,4 +1,7 @@
+import sys
 import socket
+import selectors
+import types
 import logging
 import logging.config
 import argparse
@@ -16,11 +19,12 @@ args = parser.parse_args()
 host = args.hostname
 port = args.port
 
+sel = selectors.DefaultSelector()
+
 print("Starting client")
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((host, port))
-
     print("Connected to host. Type END to end connection.")
     while True:
         input_string = input("Message to send: ")
@@ -29,10 +33,16 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             continue
 
         if input_string == "END":
-            printf("Ending connection to host")
+            print("Ending connection to host")
             break
 
-        s.sendall(input_string.encode())
-
-        data = s.recv(1024)
-        logger.info(f"Received \'{data.decode()}\'")
+        try:
+            s.sendall(input_string.encode())
+            data = s.recv(1024)
+            logger.info(f"Received \'{data.decode()}\'")
+        except ConnectionResetError:
+            print("Connection Failed")
+            break
+        except Exception as e:
+            print(e)
+            break
